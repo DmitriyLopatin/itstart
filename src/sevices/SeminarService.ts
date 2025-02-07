@@ -13,14 +13,6 @@ export const seminarAPI = createApi({
             }),
             providesTags:() =>['seminar']
         }),
-        createSeminar: build.mutation<ISeminar,ISeminar>({
-            query:(seminar)=>({
-                url:"/seminars",
-                method:"post",
-                body: seminar
-            }),
-            invalidatesTags:['seminar']
-        }),
         updateSeminar: build.mutation<ISeminar,ISeminar>({
             query:(seminar)=>({
                 url:`/seminars/${seminar.id}`,

@@ -11,23 +11,21 @@ import { ru } from 'date-fns/locale/ru';
 type Props = {
     name: string
     control: any
-    defaultValue:string
+    defaultValue: string
 }
 
-export const ReactDatePicker: React.FC<Props> = ({ control, name,defaultValue }) => {
-
-    const [startDate, setStartDate] = React.useState(defaultValue?moment(defaultValue, "DD.MM.YYYY").toDate():new Date());
+export const ReactDatePicker: React.FC<Props> = ({ control, name, defaultValue }) => {
+    registerLocale('ru', ru);
+    const [startDate, setStartDate] = React.useState(defaultValue ? moment(defaultValue, "DD.MM.YYYY").toDate() : new Date());
     const [endDate, setEndDate] = React.useState();
     const [isOpen, setIsOpen] = React.useState(false)
 
 
-    const CustomInput = forwardRef((props: any, ref) => (
-        <InputMask {...props} mask="99.99.9999" ref={ref} />
+    const CustomInput = forwardRef<HTMLInputElement, any>(({ ...props }, ref) => (
+        <InputMask {...props} mask="99.99.9999">
+            {(inputProps) => <input {...inputProps} ref={ref} />}
+        </InputMask>
     ));
-
-    React.useEffect(() => {
-        registerLocale('ru', ru);
-    }, []);
 
     return (
         <>
@@ -36,10 +34,14 @@ export const ReactDatePicker: React.FC<Props> = ({ control, name,defaultValue })
                     control={control}
                     name={name}
                     rules={{ required: true }}
-                    render={({ field: { onChange} }) =>
+                    render={({ field: { onChange } }) =>
                         <DatePicker
                             locale={"ru"}
-                            onChange={(date: any) => {setIsOpen(false); setStartDate(date); onChange(moment(date).format("DD-MM-YYYY")) }}
+                            onChange={(date: any) => {
+                                setIsOpen(false);
+                                setStartDate(date);
+                                onChange(moment(date).format("DD-MM-YYYY"))
+                            }}
                             selectsStart
                             startDate={startDate}
                             endDate={endDate}
@@ -51,7 +53,6 @@ export const ReactDatePicker: React.FC<Props> = ({ control, name,defaultValue })
                             onInputClick={() => setIsOpen(true)}
                             onSelect={() => setIsOpen(false)}
                             onClickOutside={() => setIsOpen(false)}
-                            // showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
                             customInput={<CustomInput />}
@@ -63,7 +64,8 @@ export const ReactDatePicker: React.FC<Props> = ({ control, name,defaultValue })
                         <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="#1287F3" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
                         <path d="M15.6949 13.7H15.7039M15.6949 16.7H15.7039M11.9949 13.7H12.0049M11.9949 16.7H12.0049M8.29395 13.7H8.30395M8.29395 16.7H8.30395" stroke="#1287F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         </path>
-                    </svg></span>
+                    </svg>
+                </span>
             </div>
         </>
     )
