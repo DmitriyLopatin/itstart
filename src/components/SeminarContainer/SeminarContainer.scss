@@ -1,0 +1,11 @@
+.seminars-container {
+    min-height: 400px;
+    border: 2px solid rgb(222, 137, 137);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+}
+.seminar-cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}

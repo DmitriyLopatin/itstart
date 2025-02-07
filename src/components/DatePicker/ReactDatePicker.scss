@@ -1,0 +1,25 @@
+.calendar{
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+    .react-datepicker-wrapper{
+        width: 100%;
+    }
+    span{
+        position: absolute;
+        top: 6px;
+        right: 15px;
+    }
+    input{
+        width: 100%;
+        background-color: aliceblue;
+        color: black;
+        outline: none;
+        border: 1px solid gray;
+        padding: 10px;
+        border-radius: 5px;
+    }
+}
+.react-datepicker__header__dropdown{
+    margin-top: 10px;
+}
